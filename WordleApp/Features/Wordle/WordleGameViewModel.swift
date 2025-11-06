@@ -11,12 +11,16 @@ import DesignSystem
 
 @Observable
 class WordleGameViewModel: ObservableObject {
+    init(currentUser: UserProfileModel) {
+        self.currentUser = currentUser
+    }
     var baseURL: String = "https://trouve-mot.fr/api/random"
     var message: String = ""
     var words: Array<MotRandom> = []
     var currentGame: Game? = nil
     var dailyWord: String = ""
     var keyStates: [String: LetterResult] = [:]
+    var currentUser: UserProfileModel
     
     var keyboard: [[KeyboardKey]] = [
         "QWERTYUIOP".map { KeyboardKey(type: .letter(String($0)), state: .empty) },
@@ -153,6 +157,9 @@ class WordleGameViewModel: ObservableObject {
             if dailyWord == "" {
                 words.remove(at: 0)
                 game.isOver = true
+                currentUser.wins += 1
+            } else {
+                currentUser.dailyWins += 1
             }
         } else {
             if game.currentRowIndex + 1 < game.grid.count {
@@ -162,6 +169,7 @@ class WordleGameViewModel: ObservableObject {
                 if dailyWord == "" {
                     words.remove(at: 0)
                     game.isOver = true
+                    currentUser.losses += 1
                 }
             }
         }

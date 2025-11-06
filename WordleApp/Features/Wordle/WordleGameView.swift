@@ -10,7 +10,7 @@ import SwiftUI
 import DesignSystem
 
 public struct WordleGameView: View {
-    init(gameModel: WordleGameViewModel = WordleGameViewModel()) {
+    init(gameModel: WordleGameViewModel) {
         self.gameModel = gameModel
     }
     @ObservedObject var gameModel: WordleGameViewModel

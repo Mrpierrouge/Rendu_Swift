@@ -8,10 +8,17 @@ import SwiftUI
 import DesignSystem
 
 struct WordleHomePageView: View {
-    @StateObject var wordleGame = WordleGameViewModel()
-    @StateObject var dailyGame = WordleGameViewModel()
-    
+    init() {
+        let user = UserProfileModel()
+        _currentUser = StateObject(wrappedValue: user)
+        _wordleGame = StateObject(wrappedValue:WordleGameViewModel(currentUser: user))
+        _dailyGame = StateObject(wrappedValue:WordleGameViewModel(currentUser: user))
+    }
+    @StateObject var currentUser: UserProfileModel
+    @StateObject var wordleGame: WordleGameViewModel
+    @StateObject var dailyGame: WordleGameViewModel
     @State private var navigationDestination: GameDestination? = nil
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 40) {
@@ -34,7 +41,12 @@ struct WordleHomePageView: View {
                     wordleGame.startNewGame(daily: false)
                     navigationDestination = .normal
                 }
-                
+                NavigationLink("🏅 Leaderboard") {
+                    LeaderboardView(
+                        currentUser: currentUser,
+                        allUsers: UserProfileModel.mockUsers(currentUser: currentUser)
+                    )
+                }
             }
             
             .navigationDestination(item: $navigationDestination) { destination in

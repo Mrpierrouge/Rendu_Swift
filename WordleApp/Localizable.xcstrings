@@ -1,6 +1,37 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "❌ %lld" : {
+
+    },
+    "🌞 %lld" : {
+
+    },
+    "🌞 %lld daily" : {
+
+    },
+    "🏅 Leaderboard" : {
+
+    },
+    "🏆 %lld" : {
+
+    },
+    "🏆 %lld victoires" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏆 %lld wins"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🏆 %lld victoires"
+          }
+        }
+      }
+    },
     "dailyGameButton" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -48,6 +79,25 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Rejouer"
+          }
+        }
+      }
+    },
+    "Score : %lld" : {
+
+    },
+    "Vous : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You : %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous : %@"
           }
         }
       }
