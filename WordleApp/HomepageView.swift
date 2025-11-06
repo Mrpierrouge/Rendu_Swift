@@ -17,8 +17,8 @@ struct WordleHomePageView: View {
     @StateObject var currentUser: UserProfileModel
     @StateObject var wordleGame: WordleGameViewModel
     @StateObject var dailyGame: WordleGameViewModel
-    @State private var navigationDestination: GameDestination? = nil
-
+    @State private var navigationDestination: HomeDestination? = nil
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 40) {
@@ -35,26 +35,25 @@ struct WordleHomePageView: View {
                 
                 AppButtonView(title: "dailyGameButton"){
                     dailyGame.startNewGame(daily: true)
-                    navigationDestination = .daily
+                    navigationDestination = .dailyGame
                 }
                 AppButtonView(title:"playButton") {
                     wordleGame.startNewGame(daily: false)
-                    navigationDestination = .normal
+                    navigationDestination = .normalGame
                 }
-                NavigationLink("🏅 Leaderboard") {
-                    LeaderboardView(
-                        currentUser: currentUser,
-                        allUsers: UserProfileModel.mockUsers(currentUser: currentUser)
-                    )
+                AppButtonView(title: "Leaderboard") {
+                    navigationDestination = .leaderboard
                 }
             }
             
             .navigationDestination(item: $navigationDestination) { destination in
                 switch destination {
-                case .daily:
+                case .dailyGame:
                     WordleGameView(gameModel: dailyGame)
-                case .normal:
+                case .normalGame:
                     WordleGameView(gameModel: wordleGame)
+                case .leaderboard:
+                    LeaderboardView(currentUser: currentUser)
                 }
             }
             

@@ -7,69 +7,43 @@
 import SwiftUI
 
 struct LeaderboardView: View {
-    var currentUser: UserProfileModel
-    @State var allUsers: [UserProfileModel]
-    
-    var sortedUsers: [UserProfileModel] {
-        allUsers.sorted { $0.score > $1.score }
+    init(currentUser: UserProfileModel) {
+        _leaderboard = StateObject(wrappedValue: LeaderboardViewModel(currentUser: currentUser))
     }
+    @StateObject var leaderboard: LeaderboardViewModel
     
     var body: some View {
         VStack {
             ScrollView {
                 VStack(spacing: 12) {
-                    ForEach(sortedUsers) { user in
-                        HStack(spacing: 16) {
-                            avatarView(for: user)
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(user.username)
-                                    .font(.headline)
-                                Text("Score : \(user.score)")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                                HStack {
-                                    Text("🏆 \(user.wins) victoires")
-                                    Text("🌞 \(user.dailyWins) daily")
-                                }
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(.ultraThinMaterial)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .stroke(user.id == currentUser.id ? .blue : .clear, lineWidth: 2)
-                                )
+                    ForEach(leaderboard.sortedUsers) { user in
+                        let info = leaderboard.userDisplayInfo(for: user)
+                        LeaderboardRowView(
+                            user: user,
+                            isCurrentUser: leaderboard.isCurrentUser(user),
+                            username: info.username,
+                            score: info.score,
+                            stats: info.stats
                         )
-                        .padding(.horizontal)
                     }
                     Spacer(minLength: 80)
                 }
                 .padding(.vertical)
             }
             
-            // --- Profil du joueur courant en bas ---
             VStack {
                 Divider()
                 HStack(spacing: 16) {
-                    avatarView(for: currentUser)
+                    AvatarView(image: leaderboard.currentUser.avatarImage)
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Vous : \(currentUser.username)")
-                            .font(.headline)
-                        Text("Score : \(currentUser.score)")
+                        let user = leaderboard.currentUser
+                        Text("Vous : \(user.username)").font(.headline)
+                        Text("Score : \(user.score)")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                        HStack {
-                            Text("🏆 \(currentUser.wins)")
-                            Text("🌞 \(currentUser.dailyWins)")
-                            Text("❌ \(currentUser.losses)")
-                        }
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                        Text("Wins : \(user.wins)  Dailys : \(user.dailyWins)  Loses : \(user.losses)")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
                     }
                     Spacer()
                 }
@@ -77,22 +51,8 @@ struct LeaderboardView: View {
             }
             .background(.ultraThinMaterial)
         }
-        .navigationTitle("🏅 Leaderboard")
-    }
-    
-    @ViewBuilder
-    func avatarView(for user: UserProfileModel) -> some View {
-        if let image = user.avatarImage {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 60, height: 60)
-                .clipShape(Circle())
-        } else {
-            Circle()
-                .fill(.gray.opacity(0.2))
-                .frame(width: 60, height: 60)
-                .overlay(Image(systemName: "person.fill").foregroundStyle(.gray))
-        }
+        .navigationTitle("Leaderboard")
+        .onAppear { leaderboard.refresh() }
     }
 }
+

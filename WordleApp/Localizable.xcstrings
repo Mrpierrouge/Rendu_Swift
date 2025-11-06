@@ -1,22 +1,8 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "❌ %lld" : {
-
-    },
-    "🌞 %lld" : {
-
-    },
-    "🌞 %lld daily" : {
-
-    },
-    "🏅 Leaderboard" : {
-
-    },
-    "🏆 %lld" : {
-
-    },
     "🏆 %lld victoires" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -48,6 +34,9 @@
           }
         }
       }
+    },
+    "Leaderboard" : {
+
     },
     "playButton" : {
       "extractionState" : "manual",
@@ -98,6 +87,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vous : %@"
+          }
+        }
+      }
+    },
+    "Wins : %lld  Dailys : %lld  Loses : %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Wins : %1$lld  Dailys : %2$lld  Loses : %3$lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Victoires : %1$lld  Dailys : %2$lld  Défaites : %3$lld"
           }
         }
       }

@@ -36,9 +36,10 @@ struct WordAttempt {
     }
 }
 
-enum GameDestination: Hashable, Identifiable {
-    case daily
-    case normal
+enum HomeDestination: Hashable, Identifiable {
+    case dailyGame
+    case normalGame
+    case leaderboard
     
     var id: Self { self }
 }
