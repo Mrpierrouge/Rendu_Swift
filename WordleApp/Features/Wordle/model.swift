@@ -21,6 +21,7 @@ struct Game {
         WordAttempt(tiles: grid[currentRowIndex])
     }
     var isOver: Bool = false
+    var hasWon: Bool = false
 }
 
 struct WordAttempt {

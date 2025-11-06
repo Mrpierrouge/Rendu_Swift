@@ -52,6 +52,7 @@ class WordleGameViewModel: ObservableObject {
         guard currentGame == nil || (currentGame?.isOver == true) else {
             return
         }
+        currentGame?.hasWon = false
         // Je réassigne le clavier pour reset les couleurs
         keyboard = [
             "QWERTYUIOP".map { KeyboardKey(type: .letter(String($0)), state: .empty) },
@@ -154,22 +155,29 @@ class WordleGameViewModel: ObservableObject {
         
         if guess == game.targetWord.uppercased() {
             message = "Félicitation !"
-            if dailyWord == "" {
-                words.remove(at: 0)
-                game.isOver = true
-                currentUser.wins += 1
-            } else {
-                currentUser.dailyWins += 1
+            if game.hasWon == false {
+                game.hasWon = true
+                if dailyWord == "" {
+                    words.remove(at: 0)
+                    game.isOver = true
+                    currentUser.wins += 1
+                } else {
+                    currentUser.dailyWins += 1
+                }
             }
+
         } else {
             if game.currentRowIndex + 1 < game.grid.count {
                 game.currentRowIndex += 1
             } else {
                 message = "Perdu ! le mot était " + game.targetWord
-                if dailyWord == "" {
-                    words.remove(at: 0)
-                    game.isOver = true
-                    currentUser.losses += 1
+                if game.hasWon == false {
+                    game.hasWon = true
+                    if dailyWord == "" {
+                        words.remove(at: 0)
+                        game.isOver = true
+                        currentUser.losses += 1
+                    }
                 }
             }
         }

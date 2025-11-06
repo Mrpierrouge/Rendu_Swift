@@ -24,7 +24,7 @@ public struct WordleGameView: View {
         Spacer(minLength: 10)
         
         Text(gameModel.message)
-        if gameModel.currentGame?.isOver == true {
+        if gameModel.currentGame?.isOver == true && gameModel.dailyWord == ""{
             AppButtonView(title: "replayButton") {
                 gameModel.startNewGame()
             }
