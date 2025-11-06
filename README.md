@@ -8,11 +8,14 @@ Le projet a également été enrichi d’un système de profil et de leaderboard
 LETARD Pierric (seul)
 
 🚀 Fonctionnalités principales
+
+
 🎮 Jeu Wordle
 Jouer une partie classique ou une partie quotidienne (Daily Game). Les mots sont tirées de l'API https://trouve-mot.fr
 Grille interactive avec gestion des lettres, validation et feedback visuel (bonnes lettres, lettres mal placées, etc.).
 Clavier virtuel dynamique avec mise à jour des couleurs selon les tentatives.
 Gestion de la logique de victoire, défaite et messages de fin de partie.
+
 👤 Profils utilisateurs
 Chaque joueur possède un profil personnalisé (nom, image de profil).
 Statistiques personnelles :
@@ -20,6 +23,7 @@ Nombre de victoires totales
 Nombre de victoires Daily
 Nombre de défaites
 Les données sont mockées localement (aucun backend).
+
 🏆 Leaderboard
 Classement des joueurs triés par score (victoires - défaites).
 Chaque ligne du classement affiche :
