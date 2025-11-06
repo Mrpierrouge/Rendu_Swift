@@ -16,7 +16,7 @@ class UserProfileModel: Identifiable, ObservableObject {
     var dailyWins: Int = 0
     var losses: Int = 0
     var score: Int {
-        wins - losses
+        wins + (dailyWins * 2) - losses
     }
     
     static func mockUsers(currentUser: UserProfileModel) -> [UserProfileModel] {
