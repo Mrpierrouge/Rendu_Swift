@@ -11,6 +11,7 @@ struct LeaderboardView: View {
         _leaderboard = StateObject(wrappedValue: LeaderboardViewModel(currentUser: currentUser))
     }
     @StateObject var leaderboard: LeaderboardViewModel
+    @State private var showingEditProfile = false
     
     var body: some View {
         VStack {
@@ -46,6 +47,14 @@ struct LeaderboardView: View {
                             .foregroundStyle(.gray)
                     }
                     Spacer()
+                    
+                    Button {
+                        showingEditProfile = true
+                    } label: {
+                        Image(systemName: "pencil.circle.fill")
+                            .font(.title2)
+                            .foregroundStyle(.blue)
+                    }
                 }
                 .padding()
             }
@@ -53,6 +62,18 @@ struct LeaderboardView: View {
         }
         .navigationTitle("Leaderboard")
         .onAppear { leaderboard.refresh() }
+        .sheet(isPresented: $showingEditProfile) {
+            NavigationStack {
+                EditProfileView(user: leaderboard.currentUser)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Fermer") {
+                                showingEditProfile = false
+                            }
+                        }
+                    }
+            }
+        }
     }
 }
 

@@ -18,6 +18,9 @@
         }
       }
     },
+    "Changer la photo" : {
+
+    },
     "dailyGameButton" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -35,7 +38,16 @@
         }
       }
     },
+    "Fermer" : {
+
+    },
     "Leaderboard" : {
+
+    },
+    "Modifier le profil" : {
+
+    },
+    "Nom d'utilisateur" : {
 
     },
     "playButton" : {
